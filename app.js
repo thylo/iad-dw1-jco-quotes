@@ -2,6 +2,9 @@ require("dotenv").config();
 
 const express = require("express");
 const app = express();
+
+app.use(express.static('public'));
+
 const port = process.env.PORT;
 
 const Airtable = require("airtable");
@@ -31,7 +34,7 @@ const getWord = ({ gender }) => {
   return gender === "male" ? "d'un" : "d'une";
 };
 
-app.get("/", async (req, res) => {
+app.get("/api", async (req, res) => {
   const quotes = await getQuotes();
 
   const name = randomElement(quotes.filter((q) => q.type === "name"));
